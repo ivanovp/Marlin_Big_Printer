@@ -136,6 +136,10 @@
   #define MOTHERBOARD BOARD_MKS_SBASE
 #endif
 
+// Bed is switched by external SSR, so override default setting
+//#undef HEATER_BED_PIN
+//#define HEATER_BED_PIN PIN_P1_22 // J8, ping next to GND
+
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
 #define CUSTOM_MACHINE_NAME "Big Printer"
