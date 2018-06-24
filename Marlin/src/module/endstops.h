@@ -51,7 +51,6 @@ class Endstops {
   public:
 
     static bool enabled, enabled_globally;
-    static volatile uint8_t endstop_hit_bits; // use X_MIN, Y_MIN, Z_MIN and Z_MIN_PROBE as BIT value
 
     #if ENABLED(X_DUAL_ENDSTOPS) || ENABLED(Y_DUAL_ENDSTOPS) || ENABLED(Z_DUAL_ENDSTOPS)
       typedef uint16_t esbits_t;
@@ -65,11 +64,20 @@ class Endstops {
         static float z_endstop_adj;
       #endif
     #else
-      typedef byte esbits_t;
+      typedef uint8_t esbits_t;
     #endif
 
-    static esbits_t current_endstop_bits;
+  private:
+    static esbits_t live_state;
+    static volatile uint8_t hit_state;      // Use X_MIN, Y_MIN, Z_MIN and Z_MIN_PROBE as BIT index
 
+    #if ENABLED(ENDSTOP_NOISE_FILTER)
+      static esbits_t validated_live_state;
+      uint8_t Endstops::endstop_poll_count;
+      static uint8_t endstop_poll_count;    // Countdown from threshold for polling
+    #endif
+
+  public:
     Endstops() {};
 
     /**
@@ -78,10 +86,15 @@ class Endstops {
     static void init();
 
     /**
-     * A change was detected or presumed to be in endstops pins. Find out what
-     * changed, if anything. Called from ISR contexts
+     * Are endstops or the probe set to abort the move?
      */
-    static void check_possible_change();
+    FORCE_INLINE static bool abort_enabled() {
+      return (enabled
+        #if HAS_BED_PROBE
+          || z_probe_enabled
+        #endif
+      );
+    }
 
     /**
      * Periodic call to poll endstops if required. Called from temperature ISR
@@ -89,14 +102,34 @@ class Endstops {
     static void poll();
 
     /**
-     * Update the endstops bits from the pins
+     * Update endstops bits from the pins. Apply filtering to get a verified state.
+     * If abort_enabled() and moving towards a triggered switch, abort the current move.
+     * Called from ISR contexts.
      */
     static void update();
 
     /**
-     * Print an error message reporting the position when the endstops were last hit.
+     * Get Endstop hit state.
      */
-    static void report_state(); //call from somewhere to create an serial error message with the locations the endstops where hit, in case they were triggered
+    FORCE_INLINE static uint8_t trigger_state() { return hit_state; }
+
+    /**
+     * Get current endstops state
+     */
+    FORCE_INLINE static esbits_t state() {
+      return
+        #if ENABLED(ENDSTOP_NOISE_FILTER)
+          validated_live_state
+        #else
+          live_state
+        #endif
+      ;
+    }
+
+    /**
+     * Report endstop hits to serial. Called from loop().
+     */
+    static void report_state();
 
     /**
      * Report endstop positions in response to M119
@@ -113,12 +146,12 @@ class Endstops {
     static void not_homing();
 
     // Clear endstops (i.e., they were hit intentionally) to suppress the report
-    static void hit_on_purpose();
+    FORCE_INLINE static void hit_on_purpose() { hit_state = 0; }
 
     // Enable / disable endstop z-probe checking
     #if HAS_BED_PROBE
       static volatile bool z_probe_enabled;
-      static void enable_z_probe(bool onoff=true);
+      static void enable_z_probe(const bool onoff=true);
     #endif
 
     // Debugging of endstops
@@ -126,18 +159,6 @@ class Endstops {
       static bool monitor_flag;
       static void monitor();
       static void run_monitor();
-    #endif
-
-  private:
-
-    #if ENABLED(X_DUAL_ENDSTOPS)
-      static void test_dual_x_endstops(const EndstopEnum es1, const EndstopEnum es2);
-    #endif
-    #if ENABLED(Y_DUAL_ENDSTOPS)
-      static void test_dual_y_endstops(const EndstopEnum es1, const EndstopEnum es2);
-    #endif
-    #if ENABLED(Z_DUAL_ENDSTOPS)
-      static void test_dual_z_endstops(const EndstopEnum es1, const EndstopEnum es2);
     #endif
 };
 
