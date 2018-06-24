@@ -77,7 +77,7 @@
 #define STRING_CONFIG_H_AUTHOR "Peter Ivanov <ivanovp@gmail.com>" // Who made the changes.
 #define SHOW_BOOTSCREEN
 #define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // will be shown during bootup in line 1
-#define STRING_SPLASH_LINE2 WEBSITE_URL         // will be shown during bootup in line 2
+#define STRING_SPLASH_LINE2 "" //WEBSITE_URL         // will be shown during bootup in line 2
 
 /**
  * *** VENDORS PLEASE READ ***
@@ -138,7 +138,7 @@
 
 // Bed is switched by external SSR, so override default setting
 //#undef HEATER_BED_PIN
-//#define HEATER_BED_PIN PIN_P1_22 // J8, ping next to GND
+//#define HEATER_BED_PIN PIN_P1_22 // J8, pin next to GND
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
@@ -153,13 +153,13 @@
 
 // This defines the number of extruders
 // :[1, 2, 3, 4, 5]
-#define EXTRUDERS 2
+#define EXTRUDERS 1
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
-#define SINGLENOZZLE
+//#define SINGLENOZZLE
 
 /**
  * Průša MK2 Single Nozzle Multi-Material Multiplexer, and variants.
@@ -601,7 +601,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 62.99, 62.99, 1066.67, 850 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 62.99, 62.99, 1066.67, 1201 }
 
 /**
  * Default Max Feed Rate (mm/s)
