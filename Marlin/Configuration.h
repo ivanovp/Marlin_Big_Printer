@@ -518,7 +518,7 @@
 #define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
 //#define USE_XMAX_PLUG
-#define USE_YMAX_PLUG // Z2 minimum endstop
+//#define USE_YMAX_PLUG // Z2 minimum endstop
 #define USE_ZMAX_PLUG // Z probe
 
 // Enable pullup for all endstops to prevent a floating state

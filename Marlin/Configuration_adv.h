@@ -328,7 +328,7 @@
   #define Z2_DIR_PIN    P2_12
   #define Z2_ENABLE_PIN P4_28
   //#define DISABLE_YMAX_ENDSTOP
-  #define Z_DUAL_ENDSTOPS
+  //#define Z_DUAL_ENDSTOPS
   #if ENABLED(Z_DUAL_ENDSTOPS)
     #define Z2_USE_ENDSTOP _YMAX_
     #define Z_DUAL_ENDSTOPS_ADJUSTMENT  0
