@@ -218,8 +218,7 @@ void GcodeSuite::G28(const bool always_home_all) {
   #endif
 
   #if ENABLED(BLTOUCH)
-    bltouch_command(BLTOUCH_RESET);
-    set_bltouch_deployed(false);
+    bltouch_init();
   #endif
 
   // Always home with tool 0 active
@@ -230,7 +229,7 @@ void GcodeSuite::G28(const bool always_home_all) {
     tool_change(0, 0, true);
   #endif
 
-  #if ENABLED(DUAL_X_CARRIAGE) || ENABLED(DUAL_NOZZLE_DUPLICATION_MODE)
+  #if ENABLED(DUAL_X_CARRIAGE)
     extruder_duplication_enabled = false;
   #endif
 
