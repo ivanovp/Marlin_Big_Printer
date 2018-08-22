@@ -386,10 +386,10 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
-  // Peter's Big Printer
-  #define DEFAULT_Kp 11.88
+  // Peter's Big Printer with single E3D v5
+  #define DEFAULT_Kp 12.04
   #define DEFAULT_Ki 1.10
-  #define DEFAULT_Kd 32.12
+  #define DEFAULT_Kd 33.02
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
