@@ -387,9 +387,9 @@
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 
   // Peter's Big Printer with single E3D v5
-  #define DEFAULT_Kp 12.04
-  #define DEFAULT_Ki 1.10
-  #define DEFAULT_Kd 33.02
+  #define DEFAULT_Kp 11.41
+  #define DEFAULT_Ki 1.00
+  #define DEFAULT_Kd 32.44
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
@@ -1280,11 +1280,11 @@
 
 // Preheat Constants
 #define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     50
+#define PREHEAT_1_TEMP_BED     55
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
-#define PREHEAT_2_TEMP_HOTEND 235
-#define PREHEAT_2_TEMP_BED     50
+#define PREHEAT_2_TEMP_HOTEND 245
+#define PREHEAT_2_TEMP_BED     55
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 /**
@@ -1449,7 +1449,7 @@
  * you must uncomment the following option or it won't work.
  *
  */
-#define SDSUPPORT
+//#define SDSUPPORT
 
 /**
  * SD CARD: SPI SPEED
@@ -1466,7 +1466,7 @@
  *
  * Use CRC checks and retries on the SD communication.
  */
-//#define SD_CHECK_AND_RETRY
+#define SD_CHECK_AND_RETRY
 
 /**
  * LCD Menu Items
