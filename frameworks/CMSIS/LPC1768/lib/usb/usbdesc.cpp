@@ -69,7 +69,11 @@ const uint8_t USB_ConfigDescriptor[] = {
     1*USB_INTERFACE_DESC_SIZE     +
     2*USB_ENDPOINT_DESC_SIZE
     ),
+#if (USB_MSC)
   0x03,                              /* bNumInterfaces */
+#else
+  0x02,
+#endif
   0x01,                              /* bConfigurationValue: 0x01 is used to select this configuration */
   0x00,                              /* iConfiguration: no string to describe this configuration */
   USB_CONFIG_BUS_POWERED,            /* bmAttributes */
@@ -157,7 +161,7 @@ const uint8_t USB_ConfigDescriptor[] = {
   WBVAL(USB_CDC_BUFSIZE),            /* wMaxPacketSize */
   0x00,                              /* bInterval: ignore for Bulk transfer */
 
-
+#if (USB_MSC)
   /* MSC Interface */
   /* Interface 2, Alternate Setting 0, Data class interface descriptor*/
   USB_INTERFACE_DESC_SIZE,           /* bLength */
@@ -185,6 +189,7 @@ const uint8_t USB_ConfigDescriptor[] = {
   0,
   /* Terminator */
   0                                  /* bLength */
+#endif
 };
 
 
