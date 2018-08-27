@@ -187,9 +187,9 @@ const uint8_t USB_ConfigDescriptor[] = {
   USB_ENDPOINT_TYPE_BULK,            /* bmAttributes */
   WBVAL(0x0040),                     /* wMaxPacketSize */
   0,
+#endif
   /* Terminator */
   0                                  /* bLength */
-#endif
 };
 
 
