@@ -1452,6 +1452,20 @@
  */
 #define SDSUPPORT
 
+#if 0
+// Configure to use on-board micro SD slot
+#undef SCK_PIN
+#undef MISO_PIN
+#undef MOSI_PIN
+#undef SS_PIN
+#undef SD_DETECT_PIN
+#define SCK_PIN            P0_07
+#define MISO_PIN           P0_08
+#define MOSI_PIN           P0_09
+#define SS_PIN             P0_06
+#define SD_DETECT_PIN      P0_27
+#endif
+
 /**
  * SD CARD: SPI SPEED
  *
