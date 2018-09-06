@@ -159,7 +159,7 @@
 #define USB_CLASS           1
 #define USB_HID             0
 #define USB_HID_IF_NUM      0
-#define USB_MSC             0 // Note by Peter Ivanov: may be disabled
+#define USB_MSC             1 // Note by Peter Ivanov: may be disabled
 #define USB_MSC_IF_NUM      2
 #define USB_AUDIO           0
 #define USB_ADC_CIF_NUM     0
