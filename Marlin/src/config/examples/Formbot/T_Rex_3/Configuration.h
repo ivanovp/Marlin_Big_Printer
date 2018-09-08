@@ -1,3 +1,4 @@
+
 /**
  * Marlin 3D Printer Firmware
  * Copyright (C) 2016 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
@@ -19,12 +20,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+ 
+#define TREX3              // Turn this on to generate a T-Rex 3  firmware image
 
-//#define TREX3              // Turn this on for T-Rex 3 features like dual filament run out sensors
-
-#define ROXYs_TRex           // Turn this on to get customizations only available on Roxy's T-Rex 2+
-                             // Marlin controlled heat bed, Max7219 debug LED's, less bright LED light level
-                             // More aggressive PID numbers for hotends (due to double fans)
+// The next few options are for firmware development and probably should not be used by Formbot.
+#define ICSP_PORT_SWITCHES // If ICSP_PORT_SWITCHES is defined, those pins become filament runout sensors
+                           // (But the SD Memory card won't work and is turned off!!!)
+ 
+#define ROXYs_TRex         // Turn this on to get customizations only available on Roxy's T-Rex 2+
+                           // Marlin controlled heat bed, Max7219 debug LED's, less bright LED light level 
+                           // More aggressive PID numbers for hotends (due to double fans)
 /**
  * Configuration.h
  *
@@ -138,13 +143,12 @@
 // The following define selects which electronics board you have.
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-//#define MOTHERBOARD BOARD_RUMBA
-#define MOTHERBOARD BOARD_FORMBOT
+  #define MOTHERBOARD BOARD_FORMBOT_TREX3
 #endif
 
 // Optional custom name for your RepStrap or other custom machine
 // Displayed in the LCD "Ready" message
-  #define CUSTOM_MACHINE_NAME "T-Rex 2+"
+#define CUSTOM_MACHINE_NAME "T-Rex 3"
 
 // Define this to set a unique identifier for this printer, (Used by some programs to differentiate between machines)
 // You can use an online service to generate a random UUID. (eg http://www.uuidgenerator.net/version4)
@@ -163,7 +167,7 @@
 //#define SINGLENOZZLE
 
 /**
- * Průša MK2 Single Nozzle Multi-Material Multiplexer, and variants.
+ * Pruša MK2 Single Nozzle Multi-Material Multiplexer, and variants.
  *
  * This device allows one stepper driver on a control board to drive
  * two to eight stepper motors, one at a time, in a manner suitable
@@ -329,8 +333,14 @@
 
 #if(ENABLED(ROXYs_TRex))
   #define TEMP_SENSOR_BED 11
-#else
-#define TEMP_SENSOR_BED 0
+#endif
+
+#if(ENABLED(TREX3))
+  #define TEMP_SENSOR_BED 11
+#endif
+
+#ifndef TEMP_SENSOR_BED
+  #define TEMP_SENSOR_BED 0
 #endif
 
 #define TEMP_SENSOR_CHAMBER 0
@@ -989,7 +999,12 @@
  * By default the firmware assumes HIGH=FILAMENT PRESENT.
  */
 
+#ifdef TREX3  
+  #define FILAMENT_RUNOUT_SENSOR
+  #define NUM_RUNOUT_SENSORS   2     // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
+#else
 //#define FILAMENT_RUNOUT_SENSOR
+#endif
 
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
   #ifndef NUM_RUNOUT_SENSORS
@@ -999,6 +1014,7 @@
   #define FIL_RUNOUT_PULLUP          // Use internal pullup for filament runout pins.
   //#define FIL_RUNOUT_PULLDOWN      // Use internal pulldown for filament runout pins.
   #define FILAMENT_RUNOUT_SCRIPT "M600"
+//#define FILAMENT_RUNOUT_SCRIPT "M601"
 #endif
 
 //===========================================================================
@@ -1091,9 +1107,9 @@
 
   // Set the boundaries for probing (where the probe can reach).
   //#define LEFT_PROBE_BED_POSITION MIN_PROBE_EDGE
-  //#define RIGHT_PROBE_BED_POSITION (X_BED_SIZE - (MIN_PROBE_EDGE))
+  //#define RIGHT_PROBE_BED_POSITION (X_BED_SIZE - MIN_PROBE_EDGE)
   //#define FRONT_PROBE_BED_POSITION MIN_PROBE_EDGE
-  //#define BACK_PROBE_BED_POSITION (Y_BED_SIZE - (MIN_PROBE_EDGE))
+  //#define BACK_PROBE_BED_POSITION (Y_BED_SIZE - MIN_PROBE_EDGE)
 
   // Probe along the Y axis, advancing X after each column
   //#define PROBE_Y_FIRST
@@ -1349,7 +1365,7 @@
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z }
-  #define NOZZLE_PARK_POINT { 50, (Y_MIN_POS + 10), 20 }
+  #define NOZZLE_PARK_POINT { 100, (Y_MIN_POS + 10), 20 }
   #define NOZZLE_PARK_XY_FEEDRATE 100   // X and Y axes feedrate in mm/s (also used for delta printers Z axis)
   #define NOZZLE_PARK_Z_FEEDRATE 5      // Z axis feedrate in mm/s (not used for delta printers)
 #endif
@@ -1496,7 +1512,10 @@
  * you must uncomment the following option or it won't work.
  *
  */
-#define SDSUPPORT
+
+#ifndef ICSP_PORT_SWITCHES // If ICSP_PORT is in use, those pins now are filament runout sensors
+  #define SDSUPPORT        // instead of being used by the SD Memory card socket
+#endif
 
 /**
  * SD CARD: SPI SPEED
@@ -2002,10 +2021,9 @@
 // If the servo can't reach the requested position, increase it.
 #define SERVO_DELAY { 300 }
 
-// Only power servos during movement, otherwise leave off to prevent jitter
+// Servo deactivation
+//
+// With this option servos are powered only during movement, then turned off to prevent jitter.
 //#define DEACTIVATE_SERVOS_AFTER_MOVE
-
-// Allow servo angle to be edited and saved to EEPROM
-//#define EDITABLE_SERVO_ANGLES
 
 #endif // CONFIGURATION_H
