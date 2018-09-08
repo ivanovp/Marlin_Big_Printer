@@ -97,7 +97,7 @@
 //
 // Heaters / Fans
 //
-#define HEATER_BED_PIN     P1_22 //P2_05
+#define HEATER_BED_PIN     P1_22 // Modified by Peter Ivanov //P2_05
 #define HEATER_0_PIN       P2_07
 #define HEATER_1_PIN       P2_06
 #ifndef FAN_PIN

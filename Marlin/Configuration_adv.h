@@ -324,6 +324,7 @@
 
 #define Z_DUAL_STEPPER_DRIVERS
 #if ENABLED(Z_DUAL_STEPPER_DRIVERS)
+  // Dual Z2 configuration added by Peter Ivanov
   #define Z2_STEP_PIN   P1_23 // Stepper to be used to Z2 axis.
   #define Z2_DIR_PIN    P2_12
   #define Z2_ENABLE_PIN P4_28
@@ -579,7 +580,7 @@
   // as SD_DETECT_PIN in your board's pins definitions.
   // This setting should be disabled unless you are using a push button, pulling the pin to ground.
   // Note: This is always disabled for ULTIPANEL (except ELB_FULL_GRAPHIC_CONTROLLER).
-  //#define SD_DETECT_INVERTED
+  #define SD_DETECT_INVERTED
 
   #define SD_FINISHED_STEPPERRELEASE true          // Disable steppers when SD Print is finished
   #define SD_FINISHED_RELEASECOMMAND "M84 X Y Z E" // You might want to keep the z enabled so your bed stays in place.
