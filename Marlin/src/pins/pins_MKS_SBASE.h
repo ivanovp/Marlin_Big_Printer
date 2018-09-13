@@ -194,9 +194,9 @@
 #define MOSI_PIN           P0_09 //P2_12   // J8-4 (moved from EXP2 P0.5)
 #define SS_PIN             P0_06 //P0_28
 #else
-#define SCK_PIN            P1_22   // J8-2 (moved from EXP2 P0.7)
+#define SCK_PIN            P2_12   // J8-4 (moved from EXP2 P0.7)
 #define MISO_PIN           P1_23   // J8-3 (moved from EXP2 P0.8)
-#define MOSI_PIN           P2_12   // J8-4 (moved from EXP2 P0.5)
+#define MOSI_PIN           P2_11   // J8-5 (moved from EXP2 P0.5)
 #define SS_PIN             P0_28
 #endif
 #define SDSS               P0_06
@@ -254,8 +254,7 @@
  * If you can't find a pin to use for the LCD's SD_DETECT then comment out
  * SD_DETECT_PIN entirely and remove that wire from the the custom cable.
  */
-//#define SD_DETECT_PIN      P0_27
-#define SD_DETECT_PIN      P2_11   // J8-5 (moved from EXP2 P0.27)
+#define SD_DETECT_PIN      P4_28   // J8-5 (moved from EXP2 P0.27)
 
 /**
  *  PWMs

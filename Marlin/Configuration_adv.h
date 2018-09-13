@@ -329,7 +329,7 @@
   #endif
 #endif
 
-#define Z_DUAL_STEPPER_DRIVERS
+//#define Z_DUAL_STEPPER_DRIVERS
 #if ENABLED(Z_DUAL_STEPPER_DRIVERS)
   // Dual Z2 configuration added by Peter Ivanov
   #define Z2_STEP_PIN   P1_23 // Stepper to be used to Z2 axis.
@@ -740,7 +740,7 @@
 
 // The hardware watchdog should reset the microcontroller disabling all outputs,
 // in case the firmware gets stuck and doesn't do temperature regulation.
-//#define USE_WATCHDOG // ***DEBUGGING*** Disabled by Peter Ivanov 
+//#define USE_WATCHDOG // ***DEBUGGING*** Disabled by Peter Ivanov
 
 #if ENABLED(USE_WATCHDOG)
   // If you have a watchdog reboot in an ArduinoMega2560 then the device will hang forever, as a watchdog reset will leave the watchdog on.

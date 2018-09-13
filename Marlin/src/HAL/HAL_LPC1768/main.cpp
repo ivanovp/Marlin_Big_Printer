@@ -86,8 +86,9 @@ extern "C" {
 extern uint32_t MSC_SD_Init(uint8_t pdrv);
 
 int main(void) {
-
+#if USB_MSC
   (void)MSC_SD_Init(0);
+#endif
 
   USB_Init();                               // USB Initialization
   USB_Connect(TRUE);                        // USB Connect
