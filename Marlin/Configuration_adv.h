@@ -1571,11 +1571,19 @@
   #define USER_SCRIPT_AUDIBLE_FEEDBACK
   //#define USER_SCRIPT_RETURN  // Return to status screen after a script
 
-  #define X_BED_CENTER  197 //X_BED_SIZE / 2
-  #define Y_BED_CENTER  225 //Y_BED_SIZE / 2
+  // X_BED_CENTER shall be a decimal number, calculation cannot be inserted!
+  #define X_BED_CENTER  195 // <= X_BED_SIZE / 2
+  // Y_BED_CENTER shall be a decimal number, calculation cannot be inserted!
+  #define Y_BED_CENTER  225 // <= Y_BED_SIZE / 2
+  #if X_BED_SIZE / 2 != X_BED_CENTER
+  #error Tune X_BED_CENTER!
+  #endif
+  #if Y_BED_SIZE / 2 != Y_BED_CENTER
+  #error Tune Y_BED_CENTER!
+  #endif
 
   #define USER_DESC_1 "Home/heat/auto bed l."
-  #define USER_GCODE_1 "G28\nM140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nM190 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG29"
+  #define USER_GCODE_1 "M140 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG28\nM190 S" STRINGIFY(PREHEAT_2_TEMP_BED) "\nG29"
 
   #define USER_DESC_2 "Go to center"
   #define USER_GCODE_2 "G0 X" STRINGIFY(X_BED_CENTER) " Y" STRINGIFY(Y_BED_CENTER) " F12000"
