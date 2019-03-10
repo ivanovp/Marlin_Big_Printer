@@ -169,9 +169,9 @@
  * - The onboard SD card can be used and optionally shared with a PC via USB.
  */
 
-//#define LPC_SD_CUSTOM_CABLE // Use a custom cable to access the SD
+#define LPC_SD_CUSTOM_CABLE // Use a custom cable to access the SD
 //#define LPC_SD_LCD          // Marlin uses the SD drive attached to the LCD
-#define LPC_SD_ONBOARD        // Marlin uses the SD drive attached to the control board
+//#define LPC_SD_ONBOARD        // Marlin uses the SD drive attached to the control board
 
 #if ENABLED(LPC_SD_CUSTOM_CABLE)
 
@@ -252,32 +252,32 @@
   #endif
 #endif
 
-(??)//
-(??)// Ethernet pins
-(??)//
-(??)#ifndef ULTIPANEL
-(??)  #define ENET_MDIO        P1_17   // J12-4
-(??)  #define ENET_RX_ER       P1_14   // J12-6
-(??)  #define ENET_RXD1        P1_10   // J12-8
-(??)#endif
-(??)
-(??)#define ENET_MOC           P1_16   // J12-3
-(??)#define REF_CLK            P1_15   // J12-5
-(??)#define ENET_RXD0          P1_09   // J12-7
-(??)#define ENET_CRS           P1_08   // J12-9
-(??)#define ENET_TX_EN         P1_04   // J12-10
-(??)#define ENET_TXD0          P1_00   // J12-11
-(??)#define ENET_TXD1          P1_01   // J12-12
-(??)
-(??)// A custom cable is needed. See the README file in the
-(??)// Marlin\src\config\examples\Mks\Sbase directory
-(??)
-(??)#define SCK_PIN            P1_22   // J8-2 (moved from EXP2 P0.7)
-(??)#define MISO_PIN           P1_23   // J8-3 (moved from EXP2 P0.8)
-(??)#define MOSI_PIN           P2_12   // J8-4 (moved from EXP2 P0.5)
-(??)#define SS_PIN             P0_28
-(??)#define SDSS               P0_06
-(??)
+//
+// Ethernet pins
+//
+#ifndef ULTIPANEL
+  #define ENET_MDIO        P1_17   // J12-4
+  #define ENET_RX_ER       P1_14   // J12-6
+  #define ENET_RXD1        P1_10   // J12-8
+#endif
+
+#define ENET_MOC           P1_16   // J12-3
+#define REF_CLK            P1_15   // J12-5
+#define ENET_RXD0          P1_09   // J12-7
+#define ENET_CRS           P1_08   // J12-9
+#define ENET_TX_EN         P1_04   // J12-10
+#define ENET_TXD0          P1_00   // J12-11
+#define ENET_TXD1          P1_01   // J12-12
+
+// A custom cable is needed. See the README file in the
+// Marlin\src\config\examples\Mks\Sbase directory
+
+#define SCK_PIN            P1_22   // J8-2 (moved from EXP2 P0.7)
+#define MISO_PIN           P1_23   // J8-3 (moved from EXP2 P0.8)
+#define MOSI_PIN           P2_12   // J8-4 (moved from EXP2 P0.5)
+#define SS_PIN             P0_28
+#define SDSS               P0_06
+
 /**
  * Example for trinamic drivers using the J8 connector on MKs Sbase.
  * 2130s need 1 pin for each driver. 2208s need 2 pins for serial control.
@@ -332,6 +332,7 @@
  * If you can't find a pin to use for the LCD's SD_DETECT then comment out
  * SD_DETECT_PIN entirely and remove that wire from the the custom cable.
  */
+#if 0
 #define SD_DETECT_PIN      P4_28   // J8-5 (moved from EXP2 P0.27)
 
 // UNUSED
@@ -339,6 +340,7 @@
 #define PIN_P0_28          P0_28   // EXP2
 #define PIN_P0_02          P0_02   // AUX1 (Interrupt Capable/ADC/Serial Port 0)
 #define PIN_P0_03          P0_03   // AUX1 (Interrupt Capable/ADC/Serial Port 0)
+#endif
 
 /**
  *  PWMs

@@ -782,7 +782,7 @@
  *      - normally-open switches to 5V and D32.
  *
  */
-#define Z_MIN_PROBE_ENDSTOP
+//#define Z_MIN_PROBE_ENDSTOP
 #define Z_MIN_PROBE_PIN     P1_29 //_MAX_PIN
 
 /**
