@@ -1572,7 +1572,7 @@
   //#define USER_SCRIPT_RETURN  // Return to status screen after a script
 
   // X_BED_CENTER shall be a decimal number, calculation cannot be inserted!
-  #define X_BED_CENTER  195 // <= X_BED_SIZE / 2
+  #define X_BED_CENTER  200 // <= X_BED_SIZE / 2
   // Y_BED_CENTER shall be a decimal number, calculation cannot be inserted!
   #define Y_BED_CENTER  225 // <= Y_BED_SIZE / 2
   #if X_BED_SIZE / 2 != X_BED_CENTER

@@ -649,7 +649,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 133, 120, 5, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 200, 233, 5, 25 }
 
 /**
  * Default Max Acceleration (change/s) change = mm/s
@@ -657,7 +657,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4]]]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 1500, 1000, 10, 1000 }
+#define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 10, 1000 }
 
 /**
  * Default Acceleration (change/s) change = mm/s
@@ -919,7 +919,7 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 390 //400
+#define X_BED_SIZE 400
 #define Y_BED_SIZE 450 //460
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
