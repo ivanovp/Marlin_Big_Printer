@@ -187,10 +187,15 @@
    * If you can't find a pin to use for the LCD's SD_DETECT then comment out
    * SD_DETECT_PIN entirely and remove that wire from the the custom cable.
    */
-  #define SD_DETECT_PIN    P2_11   // J8-5 (moved from EXP2 P0.27)
-  #define SCK_PIN          P1_22   // J8-2 (moved from EXP2 P0.7)
-  #define MISO_PIN         P1_23   // J8-3 (moved from EXP2 P0.8)
-  #define MOSI_PIN         P2_12   // J8-4 (moved from EXP2 P0.9)
+  #define SD_DETECT_PIN      P4_28
+  #define SCK_PIN            P2_12   // J8-4 (moved from EXP2 P0.7)
+  #define MISO_PIN           P1_23   // J8-3 (moved from EXP2 P0.8)
+  #define MOSI_PIN           P2_11   // J8-5 (moved from EXP2 P0.5)
+  #define SDSS               P0_06
+  //#define SD_DETECT_PIN    P2_11   // J8-5 (moved from EXP2 P0.27)
+  //#define SCK_PIN          P1_22   // J8-2 (moved from EXP2 P0.7)
+  //#define MISO_PIN         P1_23   // J8-3 (moved from EXP2 P0.8)
+  //#define MOSI_PIN         P2_12   // J8-4 (moved from EXP2 P0.9)
   #define SS_PIN           P0_28   // Chip select for SD card used by Marlin
   #define ONBOARD_SD_CS    P0_06   // Chip select for "System" SD card
   #define LPC_SOFTWARE_SPI  // With a custom cable we need software SPI because the
@@ -269,6 +274,7 @@
 #define ENET_TXD0          P1_00   // J12-11
 #define ENET_TXD1          P1_01   // J12-12
 
+#if 0
 // A custom cable is needed. See the README file in the
 // Marlin\src\config\examples\Mks\Sbase directory
 
@@ -277,6 +283,7 @@
 #define MOSI_PIN           P2_12   // J8-4 (moved from EXP2 P0.5)
 #define SS_PIN             P0_28
 #define SDSS               P0_06
+#endif
 
 /**
  * Example for trinamic drivers using the J8 connector on MKs Sbase.
