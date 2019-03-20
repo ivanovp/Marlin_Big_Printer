@@ -1028,13 +1028,8 @@
   #define MAX_SOFTWARE_ENDSTOP_Z
 #endif
 
-<<<<<<< HEAD
-#if ENABLED(MIN_SOFTWARE_ENDSTOPS) || ENABLED(MAX_SOFTWARE_ENDSTOPS)
-  #define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
-=======
 #if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS)
   //#define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
->>>>>>> 144018736aa1e0d466e0c0693cf7992190e4981f
 #endif
 
 /**
