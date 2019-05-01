@@ -247,6 +247,7 @@
     #define DOGLCD_SCK     SCK_PIN
     #define DOGLCD_MOSI    MOSI_PIN
   #endif
+
   #if ENABLED(FYSETC_MINI_12864)
     /**
      * The Fysetc display can NOT use the SCK and MOSI pins on EXP2, so a
@@ -280,6 +281,7 @@
     //#define LCD_SCREEN_ROT_180
     //#define LCD_SCREEN_ROT_270
   #endif
+
 #endif
 
 /**
