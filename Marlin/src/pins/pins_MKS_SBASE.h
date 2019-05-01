@@ -28,8 +28,12 @@
   #error "Oops! Make sure you have the LPC1768 environment selected in your IDE."
 #endif
 
-#define BOARD_NAME        "MKS SBASE"
-#define BOARD_WEBSITE_URL "https://github.com/makerbase-mks/MKS-SBASE"
+#ifndef BOARD_NAME
+  #define BOARD_NAME        "MKS SBASE"
+#endif
+#ifndef BOARD_WEBSITE_URL
+  #define BOARD_WEBSITE_URL "https://github.com/makerbase-mks/MKS-SBASE"
+#endif
 
 #define LED_PIN            P1_18   // Used as a status indicator
 #define LED2_PIN           P1_19
@@ -155,23 +159,11 @@
 #define ENET_TXD0          P1_00   // J12-11
 #define ENET_TXD1          P1_01   // J12-12
 
-/**
- * The SBase can share the on-board SD card with a PC via USB the following
- * definitions control this feature:
- */
-//#define USB_SD_DISABLED
-#define USB_SD_ONBOARD        // Provide the onboard SD card to the host as a USB mass storage device
-
-/**
- * There are a number of configurations available for the SBase SD card reader.
- * - A custom cable can be used to allow access to the LCD based SD card.
- * - A standard cable can be used for access to the LCD SD card (but no SD detect).
- * - The onboard SD card can be used and optionally shared with a PC via USB.
- */
-
-#define LPC_SD_CUSTOM_CABLE // Use a custom cable to access the SD
-//#define LPC_SD_LCD          // Marlin uses the SD drive attached to the LCD
-//#define LPC_SD_ONBOARD        // Marlin uses the SD drive attached to the control board
+#if !ANY(LPC_SD_LCD, LPC_SD_ONBOARD, LPC_SD_CUSTOM_CABLE)
+  #undef USB_SD_DISABLED
+  #define USB_SD_ONBOARD
+  #define LPC_SD_ONBOARD
+#endif
 
 #if ENABLED(LPC_SD_CUSTOM_CABLE)
 
@@ -255,34 +247,39 @@
     #define DOGLCD_SCK     SCK_PIN
     #define DOGLCD_MOSI    MOSI_PIN
   #endif
-#endif
+  #if ENABLED(FYSETC_MINI_12864)
+    /**
+     * The Fysetc display can NOT use the SCK and MOSI pins on EXP2, so a
+     * special cable is needed to go between EXP2 on the FYSETC and the
+     * controller board's EXP2 and J8. It also means that a software SPI
+     * is needed to drive those pins.
+     *
+     * The Fysetc requires mode 3 SPI interface.
+     *
+     * Pins 6, 7 & 8 on EXP2 are no connects. That means a second special
+     * cable will be needed if the RGB LEDs are to be active.
+     */
+    #define DOGLCD_CS      LCD_PINS_ENABLE // EXP1.3  (LCD_EN on Fysetc schematic)
+    #define DOGLCD_A0      LCD_PINS_RS     // EXP1.4  (LCD_A0 on Fysetc schematic)
+    #define DOGLCD_SCK     P2_11           // J8-5  (SCK on Fysetc schematic)
+    #define DOGLCD_MOSI    P4_28           // J8-6  (MOSI on Fysetc schematic)
 
-//
-// Ethernet pins
-//
-#ifndef ULTIPANEL
-  #define ENET_MDIO        P1_17   // J12-4
-  #define ENET_RX_ER       P1_14   // J12-6
-  #define ENET_RXD1        P1_10   // J12-8
-#endif
+    #define RGB_LED
+    //#define RGBW_LED
+    #if EITHER(RGB_LED, RGBW_LED)
+      #define RGB_LED_R_PIN P2_12          // J8-4  (LCD_D6 on Fysetc schematic)
+      #define RGB_LED_G_PIN P1_23          // J8-3  (LCD_D5 on Fysetc schematic)
+      #define RGB_LED_B_PIN P1_22          // J8-2  (LCD_D7 on Fysetc schematic)
+      //#define RGB_LED_W_PIN -1
+    #endif
 
-#define ENET_MOC           P1_16   // J12-3
-#define REF_CLK            P1_15   // J12-5
-#define ENET_RXD0          P1_09   // J12-7
-#define ENET_CRS           P1_08   // J12-9
-#define ENET_TX_EN         P1_04   // J12-10
-#define ENET_TXD0          P1_00   // J12-11
-#define ENET_TXD1          P1_01   // J12-12
-
-#if 0
-// A custom cable is needed. See the README file in the
-// Marlin\src\config\examples\Mks\Sbase directory
-
-#define SCK_PIN            P1_22   // J8-2 (moved from EXP2 P0.7)
-#define MISO_PIN           P1_23   // J8-3 (moved from EXP2 P0.8)
-#define MOSI_PIN           P2_12   // J8-4 (moved from EXP2 P0.5)
-#define SS_PIN             P0_28
-#define SDSS               P0_06
+  #elif ENABLED(MINIPANEL)
+    // GLCD features
+    // Uncomment screen orientation
+    //#define LCD_SCREEN_ROT_90
+    //#define LCD_SCREEN_ROT_180
+    //#define LCD_SCREEN_ROT_270
+  #endif
 #endif
 
 /**
@@ -315,7 +312,7 @@
  #endif
 #endif
 
-#if HAS_DRIVER(TMC2208)
+#if MB(MKS_SBASE) && HAS_DRIVER(TMC2208)
   // The shortage of pins becomes apparent.
   // Worst case you may have to give up the LCD
   // RX pins need to be interrupt capable
@@ -329,25 +326,11 @@
   #define E0_SERIAL_RX_PIN P0_26   // TH4
 #endif
 
-/**
- * P0.27 is on EXP2 and the on-board SD card's socket. That means it can't be
- * used as the SD_DETECT for the LCD's SD card.
- *
- * The best solution is to use the custom cable to connect the LCD's SD_DETECT
- * to a pin NOT on EXP2.
- *
- * If you can't find a pin to use for the LCD's SD_DETECT then comment out
- * SD_DETECT_PIN entirely and remove that wire from the the custom cable.
- */
-#if 0
-#define SD_DETECT_PIN      P4_28   // J8-5 (moved from EXP2 P0.27)
-
 // UNUSED
 #define PIN_P0_27          P0_27   // EXP2/Onboard SD
 #define PIN_P0_28          P0_28   // EXP2
 #define PIN_P0_02          P0_02   // AUX1 (Interrupt Capable/ADC/Serial Port 0)
 #define PIN_P0_03          P0_03   // AUX1 (Interrupt Capable/ADC/Serial Port 0)
-#endif
 
 /**
  *  PWMs
