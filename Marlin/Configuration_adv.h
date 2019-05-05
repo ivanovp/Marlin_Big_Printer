@@ -710,7 +710,7 @@
 // Actual motor currents in Amps. The number of entries must match DIGIPOT_I2C_NUM_CHANNELS.
 // These correspond to the physical drivers, so be mindful if the order is changed.
 //                                    X    Y    Z    E0   E1    <-- IvanovP: to be checked
-#define DIGIPOT_I2C_MOTOR_CURRENTS { 1.4, 1.4, 1.4, 1.4, 1.4 }  //  AZTEEG_X3_PRO
+#define DIGIPOT_I2C_MOTOR_CURRENTS { 1.5, 1.5, 1.5, 1.4, 1.4 } // Smoothie
 
 //===========================================================================
 //=============================Additional Features===========================
@@ -915,6 +915,7 @@
   #ifdef TARGET_LPC1768
     //#define LPC_SD_LCD          // Use the SD drive in the external LCD controller.
     //#define LPC_SD_ONBOARD      // Use the SD drive on the control board. (No SD_DETECT_PIN. M21 to init.)
+    // IvanovP: LPC_SD_CUSTOM_CABLE is OK, but microSD is better for me
     //#define LPC_SD_CUSTOM_CABLE // Use a custom cable to access the SD (as defined in a pins file).
     //#define USB_SD_DISABLED     // Disable SD Card access over USB (for security).
     #if ENABLED(LPC_SD_ONBOARD)
