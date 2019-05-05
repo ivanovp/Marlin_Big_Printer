@@ -710,7 +710,8 @@
 // Actual motor currents in Amps. The number of entries must match DIGIPOT_I2C_NUM_CHANNELS.
 // These correspond to the physical drivers, so be mindful if the order is changed.
 //                                    X    Y    Z    E0   E1    <-- IvanovP: to be checked
-#define DIGIPOT_I2C_MOTOR_CURRENTS { 1.5, 1.5, 1.5, 1.4, 1.4 } // Smoothie
+#define DIGIPOT_I2C_MOTOR_CURRENTS { 1.5, 1.5, 1.5, 1.4, 1.4 } // MKS BASE v1.3
+// IvanovP: maximum current of my motors are 1.5A/phase!
 
 //===========================================================================
 //=============================Additional Features===========================
