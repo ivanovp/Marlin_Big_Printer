@@ -2118,7 +2118,7 @@
   //#define CUSTOM_USER_MENU_TITLE "Custom Commands"
   #define USER_SCRIPT_DONE "M117 User Script Done"
   #define USER_SCRIPT_AUDIBLE_FEEDBACK
-  //#define USER_SCRIPT_RETURN  // Return to status screen after a script
+  #define USER_SCRIPT_RETURN  // Return to status screen after a script
 
   // X_BED_CENTER shall be a decimal number, calculation cannot be inserted!
   #define X_BED_CENTER  200 // <= X_BED_SIZE / 2

@@ -81,11 +81,9 @@ void HAL_init() {
     WRITE(SS_PIN, HIGH);
     SET_OUTPUT(SS_PIN);
   #endif
-#if USB_MSC
   #if defined(ONBOARD_SD_CS) && ONBOARD_SD_CS > -1
     WRITE(ONBOARD_SD_CS, HIGH);
     SET_OUTPUT(ONBOARD_SD_CS);
-  #endif
 #endif
 
   USB_Init();                               // USB Initialization
